@@ -63,6 +63,63 @@
   }
 
   /* ─── NAVIGATION ─── */
+  .hamburger { display: none; }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; right: -100%;
+    width: 75%; max-width: 300px;
+    height: 100vh;
+    background: var(--white);
+    z-index: 150;
+    padding: 5rem 2rem 2rem;
+    gap: 0;
+    transition: right 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+    box-shadow: -8px 0 32px rgba(0,0,0,0.12);
+    visibility: hidden;
+  }
+
+  .mobile-menu.open {
+    right: 0;
+    visibility: visible;
+  }
+
+  .menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 140;
+  }
+
+  .menu-overlay.open { display: block; }
+
+  .mobile-menu a {
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--dark-gray);
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:hover { color: var(--red); }
+
+  .mobile-menu .mob-cta {
+    margin-top: 1.25rem;
+    background: var(--red);
+    color: var(--white) !important;
+    text-align: center;
+    padding: 0.75rem 1rem !important;
+    border: none !important;
+    border-radius: 2px;
+  }
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -968,6 +1025,214 @@
   .fade-up:nth-child(5) { transition-delay: 0.4s; }
   .fade-up:nth-child(6) { transition-delay: 0.5s; }
 
+
+
+  /* ═══════════════════════════════════════════
+     MOBILE RESPONSIVE — max-width: 768px
+  ═══════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* ── Navigation ── */
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+
+    /* ── Hamburger ── */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark-gray);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile drawer styles inherited from base CSS ── */
+
+    /* ── Hero ── */
+    #hero {
+      padding: 0 1.25rem;
+      min-height: 100svh;
+    }
+    .hero-content {
+      margin-top: 5rem;
+      max-width: 100%;
+    }
+    .hero-headline {
+      font-size: clamp(2rem, 9vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .hero-scroll-hint { left: 1.25rem; bottom: 1.5rem; }
+
+    /* ── Red strip ── */
+    #red-strip-wrap {
+      width: calc(100% - 1rem) !important;
+      margin: 0 0.5rem !important;
+    }
+
+    /* ── Floating cards — tighter margins on mobile ── */
+    #about, #services, #projects, #contact, footer {
+      margin: 0 0.5rem !important;
+      border-radius: 12px !important;
+    }
+
+    /* ── Section inner padding ── */
+    .section-inner { padding: 3rem 1.25rem; }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: clamp(1.7rem, 6vw, 2.4rem);
+      line-height: 1.1;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .about-text {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    .about-visual {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    .about-diagram {
+      aspect-ratio: 4/3;
+      margin-bottom: 1.5rem;
+    }
+    .about-text .section-body {
+      margin-bottom: 1rem;
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      grid-template-columns: 1fr;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .service-card {
+      border-right: none !important;
+    }
+    .service-card:nth-child(4),
+    .service-card:nth-child(5),
+    .service-card:nth-child(6) {
+      border-bottom: 1px solid rgba(0,0,0,0.07) !important;
+    }
+    .service-card:last-child {
+      border-bottom: none !important;
+    }
+
+    /* ── Projects ── */
+    .proj-split {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .proj-highlight {
+      position: relative;
+      top: 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .proj-hi-img { aspect-ratio: 16/9; }
+    .proj-hi-body { padding: 1.1rem 1.25rem; }
+    .proj-hi-name { font-size: 1.3rem; }
+    .proj-hi-desc { font-size: 0.83rem; }
+    .pr-name { font-size: 0.92rem; }
+    .pr-meta { font-size: 0.6rem; }
+    .proj-show-more {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .contact-info {
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      gap: 1.25rem !important;
+      padding-bottom: 0 !important;
+    }
+    .contact-info .contact-item:last-child {
+      margin-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { gap: 1rem; }
+
+    /* ── Footer ── */
+    footer {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      padding: 1.25rem !important;
+      text-align: center;
+    }
+    .footer-brand { justify-content: center; }
+
+    /* ── Math ribbon ── */
+    .math-ribbon { padding: 0.75rem 0; }
+    .math-expr { padding: 0 1.25rem; }
+    .math-line { font-size: 0.68rem; }
+    .math-line.gold { font-size: 0.72rem; }
+
+    /* ── FEM canvas height ── */
+    .about-diagram canvas {
+      min-height: 260px;
+    }
+
+    /* ── Scroll animations — reduce on mobile ── */
+    #about, #services, #projects, #contact {
+      will-change: auto;
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     SMALL MOBILE — max-width: 480px
+  ═══════════════════════════════════════════ */
+  @media (max-width: 480px) {
+
+    .hero-headline { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+    .section-title { font-size: clamp(1.5rem, 6vw, 1.9rem); }
+    .nav-logo { width: 32px; height: 32px; }
+    .firm-acr { font-size: 0.9rem; }
+    .firm-sub { font-size: 0.48rem; letter-spacing: 0.12em; }
+    .section-inner { padding: 2.5rem 1rem; }
+    .proj-hi-name { font-size: 1.1rem; }
+    .btn-primary { padding: 0.75rem 1.4rem; font-size: 0.68rem; }
+    .hero-sub { font-size: 0.85rem; }
+    .service-card { padding: 1.75rem 1.25rem; }
+    .pr-num { width: 32px; }
+    .pr-right { min-width: 44px; padding-right: 0.5rem; }
+    .about-grid { gap: 1rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -988,7 +1253,24 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
+
+  <!-- Hamburger (mobile only) -->
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu drawer -->
+<div class="menu-overlay" id="menu-overlay"></div>
+<nav class="mobile-menu" id="mobile-menu">
+  <a href="#hero"     onclick="closeMenu()">Home</a>
+  <a href="#about"    onclick="closeMenu()">About Us</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#contact"  onclick="closeMenu()" class="mob-cta">Contact</a>
+</nav>
+
+
 
 <!-- HERO -->
 <section id="hero">
@@ -1510,6 +1792,37 @@
 
   requestAnimationFrame(draw);
 })();
+
+// ── Hamburger Menu ──
+(function(){
+  const btn     = document.getElementById('hamburger');
+  const menu    = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('menu-overlay');
+
+  function openMenu() {
+    btn.classList.add('open');
+    menu.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.closeMenu = function() {
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  if (btn) btn.addEventListener('click', function() {
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
+  // Close menu on Home click
+  document.querySelectorAll('a[href="#hero"]').forEach(function(a) {
+    a.addEventListener('click', closeMenu);
+  });
+})();
 </script>
 
 <!-- SERVICES -->
@@ -1768,6 +2081,37 @@
     lbl.textContent = projExpanded ? 'Showing all 5' : 'Showing 3 of 5';
     document.getElementById('proj-social-note').style.display = projExpanded ? 'block' : 'none';
   };
+})();
+
+// ── Hamburger Menu ──
+(function(){
+  const btn     = document.getElementById('hamburger');
+  const menu    = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('menu-overlay');
+
+  function openMenu() {
+    btn.classList.add('open');
+    menu.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.closeMenu = function() {
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  if (btn) btn.addEventListener('click', function() {
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
+  // Close menu on Home click
+  document.querySelectorAll('a[href="#hero"]').forEach(function(a) {
+    a.addEventListener('click', closeMenu);
+  });
 })();
 </script>
 
